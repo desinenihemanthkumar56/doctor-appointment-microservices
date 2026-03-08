@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 
 @Entity
@@ -40,11 +41,11 @@ public class DoctorAvailability {
         this.date = date;
     }
 
-    public Long getDoctorId() {
+    public UUID getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(UUID doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -59,7 +60,7 @@ public class DoctorAvailability {
     @Id
     @GeneratedValue
     private Long id;
-    private Long doctorId;
+    private UUID doctorId;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;

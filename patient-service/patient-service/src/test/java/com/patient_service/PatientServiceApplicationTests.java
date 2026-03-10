@@ -1,11 +1,10 @@
-package com.doctor_service;
+package com.patient_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-
-class DoctorApplicationTests {
+class PatientServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

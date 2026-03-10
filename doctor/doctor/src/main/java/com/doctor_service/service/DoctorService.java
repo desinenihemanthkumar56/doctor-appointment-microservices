@@ -3,6 +3,7 @@ package com.doctor_service.service;
 import com.doctor_service.dto.DoctorRequest;
 import com.doctor_service.dto.DoctorResponse;
 import com.doctor_service.entity.Doctor;
+import com.doctor_service.event.DoctorCreatedEvent;
 import com.doctor_service.exception.ResourceNotFoundException;
 import com.doctor_service.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class DoctorService {
 
     private final DoctorRepository doctorRepository;
-
+    private final KafkaProducerService kafkaProducerService;
     public DoctorResponse createDoctor(DoctorRequest request) {
 
         Doctor doctor = Doctor.builder()
@@ -38,6 +39,15 @@ public class DoctorService {
                 .build();
 
         Doctor saved = doctorRepository.save(doctor);
+
+        // SEND KAFKA EVENT
+        DoctorCreatedEvent event = new DoctorCreatedEvent();
+        event.setId(saved.getId());
+        event.setUserId(saved.getUserId());
+        event.setSpecialization(saved.getSpecialization());
+        event.setCity(saved.getCity());
+
+        kafkaProducerService.publishDoctorCreated(event);
 
         return mapToResponse(saved);
     }

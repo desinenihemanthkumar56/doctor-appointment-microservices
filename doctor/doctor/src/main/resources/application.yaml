@@ -5,6 +5,32 @@ spring:
   application:
     name: doctor-service
 
+  kafka:
+     bootstrap-servers: localhost:9092
+
+     producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  # Redis Configuration
+  data:
+    redis:
+      host: redis-16042.crce281.ap-south-1-3.ec2.cloud.redislabs.com
+      port: 16042
+
+      username: default
+      password: zuWDR2Joq9ba7Xxfj54YCjAqxlrL7hhb
+      ssl:
+        enabled: false  # CHANGED: Server responded with plain text in your logs
+      timeout: 6000
+      lettuce:
+        shutdown-timeout: 200ms
+
+  # Caching Configuration
+  cache:
+    type: redis
+
+  # Database Configuration
   datasource:
     url: jdbc:mysql://localhost:3306/doctor_db
     username: root
@@ -19,7 +45,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+# Service Discovery
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+

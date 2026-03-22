@@ -7,27 +7,33 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "payments")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "payments")
 public class Payment {
 
     @Id
     @GeneratedValue
     private UUID id;
 
+    @Column(nullable = false)
     private UUID appointmentId;
 
+    @Column(nullable = false)
     private Long amount;
 
+    @Column(nullable = false)
     private String currency;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 
-    private String stripePaymentIntentId;
+    // Stripe Checkout Session ID
+    @Column(unique = true)
+    private String stripeSessionId;
 
     private String idempotencyKey;
 

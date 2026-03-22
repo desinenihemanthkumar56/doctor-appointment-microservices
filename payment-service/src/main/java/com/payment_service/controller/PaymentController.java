@@ -14,10 +14,13 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @PostMapping("/create-intent")
+    @PostMapping("/checkout")
     public PaymentResponse createPayment(@RequestBody PaymentRequest request) throws Exception {
 
-        return paymentService.createPaymentIntent(request);
+        String url = paymentService.createCheckoutSession(request);
 
+        return PaymentResponse.builder()
+                .checkoutUrl(url)
+                .build();
     }
 }

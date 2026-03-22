@@ -19,7 +19,23 @@ spring:
         format_sql: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+
+      bootstrap-servers: localhost:9092
+
+      consumer:
+        group-id: payment-service-group
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+        properties:
+          spring.json.trusted.packages: "*"
+          spring.json.use.type.headers: false
+          spring.json.value.default.type: com.payment_service.dto.BookingCreatedEvent
+
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 management:
   endpoints:
@@ -39,3 +55,13 @@ eureka:
 stripe:
   secret:
     key:
+  webhook:
+    secret:
+payment:
+  success:
+    url: http://localhost:8085/payment-success
+  cancel:
+    url: http://localhost:8085/payment-cancel
+
+
+

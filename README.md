@@ -196,11 +196,7 @@ doctor-appointment-microservices/
 
 ## 👨‍💻 Author
 
-**Hemanth Kumar Desinehi**
+**Hemanth Kumar Desineni**
 - GitHub: [@desinenihemanthkumar56](https://github.com/desinenihemanthkumar56)
 
----
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
